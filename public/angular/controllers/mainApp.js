@@ -52,7 +52,7 @@ main.config([
                 controller: 'mainController'
             })
             .state('articles', {
-                url: '/articles',
+                url: '/articles/articles',
                 templateUrl: 'index.html',
                 caseInsensitiveMatch: true,
                 controller: 'mainController'
