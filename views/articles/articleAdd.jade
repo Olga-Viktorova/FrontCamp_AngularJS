@@ -1,0 +1,27 @@
+link(rel='stylesheet', href='../stylesheets/articleAdd.css')
+.login #{user.username}
+include ./../user/logout
+.container
+  form#contact(action="save", method="post")
+    h3 Add Acticle
+    |     
+    h4 Contact us for custom quote
+    |     
+    fieldset
+      input(placeholder="Title", type="text", tabindex="1", required="", autofocus="", name="title")
+    |     
+    fieldset
+      input(placeholder="Author", type="text", tabindex="2", required="", name="author")
+    |     
+    fieldset
+      input(placeholder="Image link", type="url", tabindex="3", required="", name="imagelink")
+    |     
+    fieldset
+      input(placeholder="Article Limk", type="url", tabindex="4", required="", name="acticlelink")
+    |     
+    fieldset
+      textarea(placeholder="Description", tabindex="5", required="", name="description")
+    |     
+    fieldset
+      button#contact-submit(name="submit", type="submit", data-submit="...Sending") Submit
+    |     

@@ -1,0 +1,34 @@
+link(rel='stylesheet', href='stylesheets/news.css')
+block content
+body.page
+	if user 
+		.login #{user.username}	
+		include ./../user/logout
+	else
+		.login
+			a(href='../../login') Login
+	.login 
+	div(style="text-align:center")
+		form(action="articles/add", method="get")
+			button#addArticleButton.button(type="submit") Add article
+	mixin show-article(article)
+		.article
+			img.img(src= article.imagelink)
+			//h3= article
+			a.link(href= article.acticlelink) #{article.title}    
+			h4 #{article.description}
+			h4 Publish at: #{article.created_at}
+			h4 By: #{article.author}
+			div.inline 
+				form(action="articles/update", method="get")
+					input(name="id", value="#{article._id}", type='hidden')
+					button#updateArticleButton.button(type="submit") Update
+			div.inline 
+				form(action="articles/delete", method="get")
+					input(name="id", value="#{article._id}", type='hidden')
+					button#deleteArticleButton.button(type="submit") Delete	
+	.header
+		img.logo(src="images/bbc_news_logo.png")  
+	.articles
+		for article in articles
+			+show-article(article)

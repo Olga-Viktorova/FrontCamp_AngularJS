@@ -1,0 +1,16 @@
+h4 Registar
+link(rel='stylesheet', href='../stylesheets/articleAdd.css')
+.container
+  form#contact(action="./", method="post")
+    h3 Login
+    |     
+    h4 Enter your credentials
+    |     
+    fieldset
+      input(placeholder="Email", type="email", tabindex="1", required="", autofocus="", name="email")
+    |     
+    fieldset
+      input(placeholder="Password", type="password", tabindex="2", required="", name="password") 
+    fieldset
+      button#contact-submit(name="submit", type="submit", data-submit="...Entering") Create account
+    | 

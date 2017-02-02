@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="main">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width" />
+    <title>Article</title>
+    <link href="/stylesheets/page.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/news.css" />
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script src="angular-ui-router.js"></script>
+    <script src="angular-resource.js"></script>
+    <script src="/Modules/mainApp.js"></script>
+    <script src="angular/controllers/mainController.js"></script>
+</head>
+    <body className="page">
+     <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/articles/articles">Articles</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-right navbar-text">Signed in as {{current_user}}</p></li>
+                    <li><p class="navbar-right navbar-text" ng-hide="authenticated">
+                        <a href="/user/login">Login</a> or <a href="/user/register">Register</a>
+                    </p></li>
+                    <li><p class="navbar-right navbar-text" ng-show="authenticated">
+                        <a href="#" ng-click="signout()">Logout</a>
+                    </p></li>
+                </ul>
+            </div>
+            <div class="container body-content">
+                <div ui-view>
+                </div>
+                <hr />
+                <footer>
+                    <p>My ASP.NET Application</p>
+                </footer>
+            </div>
+        </body>
+ </html>

@@ -1,0 +1,74 @@
+.page{
+    background: url(../images/background.jpg);
+}
+.header{
+    font-size: 40px;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight:bold;
+}
+
+.logo{
+    width: 11%;
+    float: center;
+    padding: 10px;
+}
+.article { 
+    background: #F5F5F5;
+    padding-right: 20px; 
+    border: solid 1px black; 
+    position:relative;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.img{
+    width: 10%;
+    float: left;
+    padding: 5px;
+}
+
+@media (max-width: 2000px) { 
+  .article{
+    margin: 10px auto;
+    width: 70%;
+    padding: 10px;
+    }
+}
+
+@media (max-width: 1259px) {
+  .article{
+    margin: 10 auto;
+    width: 80%;
+    padding: 10px;
+    }
+ }
+
+ @media (max-width: 779px) {
+  .article{
+    margin: 10 auto;
+    width: 90%;
+    padding: 10px;
+    }
+ }
+
+ .button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;   
+    margin: 5px;
+}
+
+div.inline {
+    display: inline-block;
+ }
+ .login {
+    font-size: 25px;   
+    margin: 15px;
+    text-align: right;
+ }

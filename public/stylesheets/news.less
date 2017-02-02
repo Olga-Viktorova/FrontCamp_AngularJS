@@ -1,0 +1,62 @@
+@color_1: #FFFFFF;
+
+.header {
+	font-size: 40px;
+	color: @color_1;
+	text-align: center;
+	font-weight: bold;
+}
+.logo {
+	width: 11%;
+	float: center;
+	padding: 10px;
+}
+.row {
+	background: #F5F5F5;
+	padding-right: 20px;
+	border: solid 1px black;
+	position: relative;
+	margin: 10px auto;
+	padding: 10px;
+}
+.img {
+	width: 10%;
+	float: left;
+	padding: 5px;
+}
+@media (max-width: 2000px) {
+	.row {
+		margin: 10px auto;
+		width: 70%;
+		padding: 10px;
+	}
+}
+@media (max-width: 1259px) {
+	.row {
+		margin: 10 auto;
+		width: 80%;
+		padding: 10px;
+	}
+}
+
+.likebutton {
+	background-color: #555555;
+	border: none;
+	color: @color_1;
+	padding: 15px 32px;
+	text-align: right;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+}
+@media (max-width: 779px) {
+	.row {
+		margin: 10 auto;
+		width: 90%;
+		padding: 10px;
+	}
+}
+
+.button {
+	display: none;
+}
