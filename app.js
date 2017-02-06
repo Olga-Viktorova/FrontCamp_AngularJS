@@ -27,9 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('html', require('ejs').renderFile);
 // app.set('view engine', 'html');
 
-app.use('/*', function(req, res){
-  res.sendfile(__dirname + '/public/index.html');
-});
+// app.use('/*', function(req, res){
+//   res.sendfile(__dirname + '/public/index.html');
+// });
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
