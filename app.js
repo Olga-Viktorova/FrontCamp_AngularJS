@@ -17,20 +17,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
+
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+
 app.use('/', index);
 app.use('/articles', article);
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 //app.set('views', path.join(__dirname, 'views'));
 
-app.engine('html', require('ejs').renderFile);
+
 // app.set('view engine', 'html');
 
 // app.use('/*', function(req, res){
 //   res.sendfile(__dirname + '/public/index.html');
 // });
-app.set('view engine', 'ejs');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
