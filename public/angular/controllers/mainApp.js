@@ -2,6 +2,7 @@ var myApp = angular.module('articleApp', ['ui.router', 'ui.bootstrap' , 'ngRoute
   .config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
       $locationProvider.hashPrefix('');
+     // $locationProvider.html5Mode(true);
       $routeProvider
        .when("/", {
             templateUrl: "views/index.html",
@@ -38,7 +39,7 @@ var myApp = angular.module('articleApp', ['ui.router', 'ui.bootstrap' , 'ngRoute
 angular.module('articleApp').component('articles', {
    template: `<div ng-repeat = "art in $ctrl.articles | startFrom: ($ctrl.currentPage-1) * $ctrl.pageSize | limitTo:$ctrl.pageSize" >
                 <div class="article">
-                    <img src={{art.imagelink}} class="img"/>
+                    <img ng-src={{art.imagelink}} class="img"/>
                     <a href={{art.acticlelink}} class="link" ng-click="$ctrl.update(art._id)">{{art.title}}</a>
                     <h4>{{art.description}}</h4>
                     <h4>By: {{art.author}}</h4>
@@ -111,6 +112,10 @@ myApp.controller('ArticleCtrl', ['$scope', '$http', '$location', 'articleService
   $scope.status = articleService.getStatus();
   $scope.currentPage = 1;
   $scope.pageSize = 5;
+
+  $scope.showArticles = function (){
+      $location.path('articles');
+  }
 }]);
 
 myApp.controller('AddArticleCtrl', ['$scope', '$http', '$location', 'articleService', '$routeParams', '$resource', function($scope, $http, $location, articleService, $routeParams, $resource) {

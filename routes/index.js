@@ -8,7 +8,7 @@
 
 
 router.get('/',function(req,res,next){	
-	res.render('Starter', { title:"Super App" });	
+	res.render('starter');	
 });
 
 // router.get('/server/getArticles', function(req, res, next) {
