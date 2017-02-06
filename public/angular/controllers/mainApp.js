@@ -26,8 +26,10 @@ var myApp = angular.module('articleApp', ['ui.router', 'ui.bootstrap' , 'ngRoute
 )
 .filter('startFrom', function(){
     return function(data, start){
-        start = 0 + start;
-        return data.slice(start);
+        if(data){
+            start = 0 + start;
+            return data.slice(start);
+        }
     }
 });
 
@@ -46,18 +48,17 @@ angular.module('articleApp').component('articles', {
                         </form>
                     </div>	
                     <div class="inline"> 
-                        <form action="articles/delete" method="get">
-                            <input name="id" value={{art._id}} type="hidden"/>
-                            <button class="button" id="updateArticleButton" type="submit">Delete</button>
+                        <form method="get">
+                           <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.delete(art._id)">Delete</button>
                         </form>
                     </div>								
 			    </div>
             </div>
-            <div>{{$ctrl.pageSize}}</div>
-            <pagination total-items="$ctrl.articles.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></pagination>`,
+            <div class = "align-center">
+            <div uib-pagination total-items="$ctrl.articles.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></div>
+            </div>`,
    
-    controller: function ArticleListController($scope, $http, $location) {
- 
+    controller: function ArticleListController($scope, $http, $location, $resource, $routeParams, $route) {
     var self = this;
 
     self.currentPage = 1;
@@ -74,6 +75,16 @@ angular.module('articleApp').component('articles', {
     }
     self.update = function (id) {
        $location.path('articles/update/'+id);
+    }
+    self.delete = function (id) {
+      var DeleteArticle = $resource('/articles/delete?id=:id', {id:'@id'});
+         DeleteArticle.get({id: id}, function(success) {
+                status = success.status;
+                $route.reload();
+            console.log('RESPONSE', success);
+            }, function(error) {
+            console.log('ERROR', error);
+    });
     }
 }});
 
@@ -100,18 +111,6 @@ myApp.controller('ArticleCtrl', ['$scope', '$http', '$location', 'articleService
   $scope.status = articleService.getStatus();
   $scope.currentPage = 1;
   $scope.pageSize = 5;
-  //$scope.articles = [{title: "Olya", surname:"Viktorova"}, {title: "Olya", surname:"Viktorova"},{title: "Olya", surname:"Viktorova"},{title: "Olya", surname:"Viktorova"}, {title: "Olya", surname:"Viktorova"},{title: "Olya", surname:"Viktorova"}];
-
-//   $scope.getArticles1 = function(){
-//        $http.get('/articles/getArticles').then(
-//             function(success) {
-//                 $scope.articles = success.data.articles;
-//                 console.log('RESPONSE', success);
-//             }, function(error) {
-//                 console.log('ERROR', error);
-//             });
-//     }
-//   $scope.getArticles1();
 }]);
 
 myApp.controller('AddArticleCtrl', ['$scope', '$http', '$location', 'articleService', '$routeParams', '$resource', function($scope, $http, $location, articleService, $routeParams, $resource) {
@@ -136,8 +135,7 @@ myApp.controller('AddArticleCtrl', ['$scope', '$http', '$location', 'articleServ
         console.log('RESPONSE', success);
         }, function(error) {
         console.log('ERROR', error);
-    });
-
+    });  
 
 //   $scope.getCurrentArticle = function(id) {
 //       $http.get('/articles/update?id=' + id).then(
@@ -172,8 +170,6 @@ myApp.service('articleService',['$http', '$location', '$resource', function($htt
         console.log('ERROR', error);
     });
   }   
-
-  
 
 //   var addArticle = function(data) {
 //        $http.post('/articles/save',
@@ -239,95 +235,3 @@ myApp.directive('minWords', function() {
 };
 
 });
-
-// var main = angular.module("main", ['ui.router','ngRoute','ngResource'])
-// .run(function($http,$rootScope)
-// {
-//     //defining global veriables
-//     $rootScope.roles = [{
-// 		  name: "Administrator",
-//           code: 0
-// 	   }, {
-// 		  name: "Staff",
-//           code: 1
-// 	   }, {
-// 		  name: "General",
-//           code: 2
-// 	}];
-    
-//     //roles enum for authorization
-//     // $rootScope.AuthenticRoles = {
-//     //   Administrator: "Administrator",
-//     //   Staff: "Staff",
-//     //   General: "General"
-//     // };
-//     // $rootScope.routeForUnauthorizedAccess = 'unauth';
-    
-    
-//     //Checking current session value
-//     // if(sessionStorage.length > 0){
-//     //     $rootScope.current_user = sessionStorage.current_user;
-//     //     $rootScope.authenticated = true;
-//     // }else{
-//     //     $rootScope.authenticated = false;
-//     //     $rootScope.current_user = 'Guest';
-//     // }
-    
-//     // $rootScope.signout = function(){
-//     //     $http.get('auth/signout');
-//     //     $rootScope.authenticated = false;
-//     //     $rootScope.current_user = 'Guest';
-//     //     sessionStorage.clear();
-//     // };
-// });
-
-// //Routing Configuration (define routes)
-// main.config([
-//     '$stateProvider', '$urlRouterProvider', '$httpProvider',
-//     function ($stateProvider, $urlRouterProvider,$rootScope) {
-//         $urlRouterProvider.otherwise('/');
-//         $stateProvider
-//             .state('home', {
-//                 url: '/',
-//                 templateUrl: 'index.html',
-//                 caseInsensitiveMatch: true,
-//                 controller: 'mainController'
-//             })
-//             .state('articles', {
-//                 url: '/articles/articles',
-//                 templateUrl: 'index.html',
-//                 caseInsensitiveMatch: true,
-//                 controller: 'mainController'
-//                 //below code is for authentication
-//                 // ,
-//                 // resolve: {
-//                 // permission: function(authorizationService, $rootScope) {
-//                 //     return authorizationService.permissionCheck($rootScope.AuthenticRoles.Administrator);
-//                 // }
-//                 // }
-//             })
-//             // .state('about', {
-//             //     url: '/about',
-//             //     templateUrl: 'About.html',
-//             //     caseInsensitiveMatch: true,
-//             //     controller: 'MainController'
-//             // })
-//             // .state('login',{
-//             //     url: '/login',
-//             //     templateUrl: 'login.html',
-//             //     caseInsensitiveMatch: true,
-//             //     controller: 'AuthController'
-//             // })
-//             // .state('register',{
-//             //     url: '/register',
-//             //     templateUrl: 'register.html',
-//             //     caseInsensitiveMatch: true,
-//             //     controller: 'AuthController'
-//             // })
-//             // .state('unauth',{
-//             //     url: '/unauth',
-//             //     templateUrl: 'unauth.html',
-//             //     caseInsensitiveMatch: true
-//             // });
-//     }
-// ]);

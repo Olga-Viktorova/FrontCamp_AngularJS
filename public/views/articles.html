@@ -1,31 +1,3 @@
 <div class="align-center">{{status}}</div>
 <add-an-article></add-an-article>
-<!--<div  ng-repeat = "art in articles | startFrom: (currentPage-1) * pageSize | limitTo:pageSize" >
-                <div class="article">
-                    <img src={{art.imagelink}} class="img"/>
-                    <a href={{art.acticlelink}} class="link" ng-click="$ctrl.update(art._id)">{{art.title}}</a>
-                    <h4>{{art.description}}</h4>
-                    <h4>By: {{art.author}}</h4>
-                    <div class="inline"> 
-                        <form method="get">
-                           <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.update(art._id)">Update</button>
-                        </form>
-                    </div>	
-                    <div class="inline"> 
-                        <form action="articles/delete" method="get">
-                            <input name="id" value={{art._id}} type="hidden"/>
-                            <button class="button" id="updateArticleButton" type="submit">Delete</button>
-                        </form>
-                    </div>								
-			    </div>
-            </div>
-            <div pagination total-items="2" ng-model="currentPage"  class="pagination-sm" items-per-page="pageSize"></div>
-
-            <pagination total-items="articles.length" ng-model="currentPage" items-per-page="pageSize"></pagination >-->
-
-
-
-
-
-
 <articles></articles>

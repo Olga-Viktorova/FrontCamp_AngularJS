@@ -67,11 +67,11 @@ router.get('/update', function(req, res, next) {
 	});
 });
 
-
-router.get('/delete', mustAuthenticatedMw, function(req, res, next) {
+// router.get('/delete', mustAuthenticatedMw, function(req, res, next) {
+router.get('/delete', function(req, res, next) {
   ArticleModel.findByIdAndRemove(req.query.id, function (err, todo) {  
   if (err) return res.send(500, { error: err });
-  	 res.render('articles/statusArticle', {status: 'Article: ' + req.query.id + 'was deleted successfully !', user: req.user});
+  	 res.send({status: 'Article: ' + req.query.id + 'was deleted successfully !', user: req.user});
   	 		});
 });
 
