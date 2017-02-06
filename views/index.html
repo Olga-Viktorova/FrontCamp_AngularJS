@@ -1,10 +1,29 @@
-<div className="align-center">  
-<form action="articles" method="get">
-	<button className="button" id="shownArticleButton" type="submit">Show articles</button>
-</form>
-</div>
-<div className="align-center">
-	<form action="articles/add" method="get">
-		<button className="button" id="addArticleButton" type="submit">Add article</button>
-	</form>
-</div>    
+<html ng-app="articleApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width" />
+    <title>Article</title>
+    <link href="/stylesheets/page.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/news.css" />
+    <script src="angular/js/angular.js"></script>
+    <script src="/angular/js/angular-route.js"></script>
+    <script src="/angular/js/angular-ui-router.js"></script>
+    <script src="/angular/js/angular-resource.js"></script>
+    <script src="angular/controllers/mainApp.js"></script>
+    <script src="angular/controllers/mainController.js"></script>
+</head>
+    <body class="page" ng-app="articleApp">
+        <div class="align-center">  
+            <form action="/index" method="get">
+	          <button class="button" id="shownArticleButton" type="submit">Show articles</button>
+            </form>
+        </div>
+        <div class="align-center">
+            <form action="articles/add" method="get">
+                <button class="button" id="addArticleButton" type="submit">Add article</button>
+            </form>
+        </div>    
+        <div ng-view></div>
+    </body>
+ </html>

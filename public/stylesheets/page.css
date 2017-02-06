@@ -1,6 +1,9 @@
 .page{
     background: url(../images/background.jpg);
 }
+.align-center{
+	text-align: center;
+}
 
 .newsapilink{
     text-align: left;

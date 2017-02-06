@@ -1,0 +1,32 @@
+<!--<Layout user={this.props.user}>-->
+        <link rel="stylesheet" href="/stylesheets/articleAdd.css"/>
+            <div class="container" ng-submit="save()" ng-controller="AddArticleCtrl">
+                <!--action="#/articles/save"-->
+               <form id="contact"  method="post" name="article">
+                    <h3>Add Acticle</h3>    
+                    <h4>Contact us for custom quote</h4> 
+                     <fieldset>
+                       <input placeholder="ID" type="hidden" tabindex="1" required="" autofocus="" name="id" ng-model="currentArticle._id"/>
+                    </fieldset>      
+                    <fieldset>
+                       <input ng-model="currentArticle.title" placeholder="Title" type="text" tabindex="1" required autofocus="" name="title"  /><!--min-words="20"-->
+                       <!--<ng-message when="minWords">It should be more 20 symbols</ng-message>-->
+                    </fieldset>    
+                    <fieldset>
+                        <input placeholder="Author" type="text" tabindex="2" required="" ng-model="currentArticle.author" />
+                    </fieldset>    
+                    <fieldset>
+                        <input placeholder="Image link" type="url" tabindex="3" required="" ng-model="currentArticle.imagelink"/>
+                    </fieldset>    
+                    <fieldset>
+                        <input placeholder="Article Limk" type="url" tabindex="4" required="" ng-model="currentArticle.acticlelink"/>
+                    </fieldset>    
+                    <fieldset>
+                       <textarea placeholder="Description" tabindex="5" required ng-model="currentArticle.description"></textarea>
+                    </fieldset>    
+                    <fieldset>
+                       <button id="contact-submit" name="submit" type="submit" data-submit="...Sending">Submit</button>
+                    </fieldset>    
+                </form>
+            </div>
+        <!--</Layout>-->

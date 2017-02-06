@@ -1,91 +1,65 @@
-var main = angular.module("main", ['ui.router','ngRoute','ngResource'])
-.run(function($http,$rootScope)
-{
-    //defining global veriables
-    $rootScope.roles = [{
-		  name: "Administrator",
-          code: 0
-	   }, {
-		  name: "Staff",
-          code: 1
-	   }, {
-		  name: "General",
-          code: 2
-	}];
-    
-    //roles enum for authorization
-    // $rootScope.AuthenticRoles = {
-    //   Administrator: "Administrator",
-    //   Staff: "Staff",
-    //   General: "General"
-    // };
-    // $rootScope.routeForUnauthorizedAccess = 'unauth';
-    
-    
-    //Checking current session value
-    // if(sessionStorage.length > 0){
-    //     $rootScope.current_user = sessionStorage.current_user;
-    //     $rootScope.authenticated = true;
-    // }else{
-    //     $rootScope.authenticated = false;
-    //     $rootScope.current_user = 'Guest';
-    // }
-    
-    // $rootScope.signout = function(){
-    //     $http.get('auth/signout');
-    //     $rootScope.authenticated = false;
-    //     $rootScope.current_user = 'Guest';
-    //     sessionStorage.clear();
-    // };
-});
+var ArticleModel = require('../models/article');
 
-//Routing Configuration (define routes)
+var main = angular.module("articleApp", ['ui.router','ngRoute','ngResource'])
+
 main.config([
-    '$stateProvider', '$urlRouterProvider', '$httpProvider',
-    function ($stateProvider, $urlRouterProvider,$rootScope) {
-        $urlRouterProvider.otherwise('/');
-        $stateProvider
-            .state('home', {
-                url: '/',
-                templateUrl: 'index.html',
-                caseInsensitiveMatch: true,
-                controller: 'mainController'
+    '$locationProvider', '$routeProvider', '$httpProvider',
+    function ($locationProvider, $routeProvider, $httpProvider) {
+        $routeProvider
+            .when('/articles', {
+                template: '<articles></articles>'
             })
-            .state('articles', {
-                url: '/articles',
-                templateUrl: 'index.html',
-                caseInsensitiveMatch: true,
-                controller: 'mainController'
-                //below code is for authentication
-                // ,
-                // resolve: {
-                // permission: function(authorizationService, $rootScope) {
-                //     return authorizationService.permissionCheck($rootScope.AuthenticRoles.Administrator);
-                // }
-                // }
+            .when('/addArticle', {
+                template: '<quote></quote>'
             })
-            // .state('about', {
-            //     url: '/about',
-            //     templateUrl: 'About.html',
-            //     caseInsensitiveMatch: true,
-            //     controller: 'MainController'
-            // })
-            // .state('login',{
-            //     url: '/login',
-            //     templateUrl: 'login.html',
-            //     caseInsensitiveMatch: true,
-            //     controller: 'AuthController'
-            // })
-            // .state('register',{
-            //     url: '/register',
-            //     templateUrl: 'register.html',
-            //     caseInsensitiveMatch: true,
-            //     controller: 'AuthController'
-            // })
-            // .state('unauth',{
-            //     url: '/unauth',
-            //     templateUrl: 'unauth.html',
-            //     caseInsensitiveMatch: true
-            // });
+            .when('/updateArticle:id?', {
+                template: '<quote-proposed-list></<quote-proposed-list>>'
+            })
+        .otherwise('/index');
     }
 ]);
+
+angular.module('articleApp').component('articles', {
+  //templateUrl: "../Scripts/app/quote/template/quote.template.html",
+   template: `<div ng-repeat = "art in $ctrl.articles">
+                <div className="article">
+                    <img src={art.imagelink} className="img"/>
+                    <a href={art.acticlelink} className="link">{art.title}</a>
+                    <h4>{art.description}</h4>
+                    <h4>By: {art.author}</h4>
+                    <div className="inline"> 
+                        <form action="articles/update" method="get">
+                            <input name="id" value={art._id} type="hidden"/>
+                            <button className="button" id="updateArticleButton" type="submit">Update</button>
+                        </form>
+                    </div>	
+                    <div className="inline"> 
+                        <form action="articles/delete" method="get">
+                            <input name="id" value={art._id} type="hidden"/>
+                            <button className="button" id="updateArticleButton" type="submit">Delete</button>
+                        </form>
+                    </div>								
+			    </div>
+            </div>`,
+   
+    controller: function articleListController(quoteService, $routeParams) {
+    var self = this;
+
+    self.articles = ArticleModel.find({}, function(err, articles) {
+ 		return { articles: articles, user: req.user };
+ 	}); 
+
+    // self.toPropose = function () {
+    //   config.redirect(config.proposeUrl);
+    // }
+
+    // self.$onInit = function () {
+    //   if (!$routeParams.id === false) {
+    //     self.isStaticLink = true;
+    //   }
+      // self.quote = self.isStaticLink
+      //   ? quoteService.getQuote($routeParams.id).then(config.responseProcess)
+      //   : quoteService.getRandom().then(config.responseProcess);
+    }
+  //}
+});

@@ -1,5 +1,5 @@
-main.controller("mainController", function ($scope, $http, $rootScope, $location) {
-    $scope.user = {username: '', password: ''};
+// main.controller("mainController", function ($scope, $http, $rootScope, $location) {
+//     $scope.user = {username: '', password: ''};
 	//$scope.error_message = '';
     //login call to webapi (node implemented service)
     //$scope.articles = function(){
@@ -18,4 +18,4 @@ main.controller("mainController", function ($scope, $http, $rootScope, $location
 			// }
 	//	});
 	//};
-});
+//});

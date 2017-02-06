@@ -6,24 +6,36 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-//var article = require('./routes/article');
+var article = require('./routes/article');
 
 
 var app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
+app.use('/', index);
+app.use('/articles', article);
 
-app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+//app.set('views', path.join(__dirname, 'views'));
+
+app.engine('html', require('ejs').renderFile);
+// app.set('view engine', 'html');
+
+app.use('/*', function(req, res){
+  res.sendfile(__dirname + '/public/index.html');
+});
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -39,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //app.use('/articles', article);
-app.use('/', index);
+
 
 
 // catch 404 and forward to error handler
