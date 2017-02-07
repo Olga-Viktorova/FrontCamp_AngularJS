@@ -1,30 +1,43 @@
 describe('Articles component', function() {
-
-   var $controller,
-       $rootScope,
-       ArticleListController,
+       //$rootScope,
+       //ArticleListController,
 //      // $articleScope,
-         articleServiceMock,
+         //articleServiceMock,
 //       $rootScope,
 //       //$mdDialogMock,
 //       //EVENTS,
 //       //newArticleId = 123,
-         $q,
+         //$q,
 //       //update,
 //       //delete,
 //       //mdDialogDefer,
-      newArticle = {
-          title: "new article title"
-      },
-      articles = [];
+      // newArticle = {
+      //     title: "new article title"
+      // },
+      // articles = [];
 
 
 //     // Before each test load bloglog module
-   beforeEach(angular.mock.module('articleApp'));
-  
-  
-   beforeEach(inject(function(_$controller_) {
-    //  $controller = _$controller_;
+    beforeEach(module('articleApp'));
+
+    var $controller;
+
+    beforeEach(inject(function(_$controller_){
+      // The injector unwraps the underscores (_) from around the parameter names when matching
+      $controller = _$controller_;
+  }));
+
+    describe('$scope.grade', function() {
+    it('sets the strength to "strong" if the password length is >8 chars', function() {
+      //expect(true).toBe(true);
+       var $scope = {};
+       var controller = $controller('AddArticleCtrl', { $scope: $scope });
+       $scope.test = 1;
+    //   $scope.grade();
+       expect($scope.test).toEqual(1);
+    });
+  });
+});
     //  $rootScope = _$rootScope_;
     // //$articleScope = _$rootScope_.$new();
     //  $q = _$q_;
@@ -63,14 +76,14 @@ describe('Articles component', function() {
     // Spy on our service call but allow it to continue to its implementation
     //spyOn(articleServiceMock, "getArticlesByFilter").and.callThrough();
     //spyOn(articleServiceMock, "addArticle").and.callThrough();
-  }));
 
 
-  it('ArticleListController should be defined', function() {    
-     expect(true).toBe(true);
+
+  // it('AddArticleCtrl should be defined', function() {    
+  //    expect(true).toBe(true);
     
-    //expect(ArticleListController).toBeDefined();
-  });
+  //   //expect(ArticleListController).toBeDefined();
+  // });
 
 //   it('Check "loadArticles" function', function() {
     
@@ -109,4 +122,4 @@ describe('Articles component', function() {
     
 //   });
 
-});
+//});

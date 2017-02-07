@@ -16,8 +16,10 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       './public/angular/js/angular.js',
+      './public/angular/js/angular-resource.js',
       './node_modules/angular-mocks/angular-mocks.js',
-      './public/angular/controllers/mainApp.js',
+      './public/angular/controllers/addActicleController.js',
+      './public/angular/controllers/testFile.js',
       'tests/*.js'
     ],
 
@@ -68,6 +70,8 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+   // plugins : ['karma-jasmine', 'karma-phantomjs-launcher']
   })
 }
