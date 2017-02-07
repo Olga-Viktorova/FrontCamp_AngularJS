@@ -13,10 +13,10 @@ var myApp = angular.module('articleApp', ['ui.router', 'ui.bootstrap' , 'ngRoute
             controller: "ArticleCtrl" 
          })
         .when("/articles/add", {
-            template: `<add-article-directive></<add-article-directive>`,
+            template: "<add-article-directive></<add-article-directive>",
         })
         .when("/articles/update/:id?", {
-            template: `<add-article-directive></<add-article-directive>`,
+            template: "<add-article-directive></<add-article-directive>",
         })
         .when("/articles/save", {
             controller: "AddArticleCtrl" 
@@ -37,27 +37,27 @@ var myApp = angular.module('articleApp', ['ui.router', 'ui.bootstrap' , 'ngRoute
 
 //COMPONENTS
 angular.module('articleApp').component('articles', {
-   template: `<div ng-repeat = "art in $ctrl.articles | startFrom: ($ctrl.currentPage-1) * $ctrl.pageSize | limitTo:$ctrl.pageSize" >
-                <div class="article">
-                    <img ng-src={{art.imagelink}} class="img"/>
-                    <a href={{art.acticlelink}} class="link" ng-click="$ctrl.update(art._id)">{{art.title}}</a>
-                    <h4>{{art.description}}</h4>
-                    <h4>By: {{art.author}}</h4>
-                    <div class="inline"> 
-                        <form method="get">
-                           <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.update(art._id)">Update</button>
-                        </form>
-                    </div>	
-                    <div class="inline"> 
-                        <form method="get">
-                           <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.delete(art._id)">Delete</button>
-                        </form>
-                    </div>								
-			    </div>
-            </div>
-            <div class = "align-center">
-            <div uib-pagination total-items="$ctrl.articles.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></div>
-            </div>`,
+//    template: `<div ng-repeat = "art in $ctrl.articles | startFrom: ($ctrl.currentPage-1) * $ctrl.pageSize | limitTo:$ctrl.pageSize" >
+//                 <div class="article">
+//                     <img ng-src={{art.imagelink}} class="img"/>
+//                     <a href={{art.acticlelink}} class="link" ng-click="$ctrl.update(art._id)">{{art.title}}</a>
+//                     <h4>{{art.description}}</h4>
+//                     <h4>By: {{art.author}}</h4>
+//                     <div class="inline"> 
+//                         <form method="get">
+//                            <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.update(art._id)">Update</button>
+//                         </form>
+//                     </div>	
+//                     <div class="inline"> 
+//                         <form method="get">
+//                            <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.delete(art._id)">Delete</button>
+//                         </form>
+//                     </div>								
+// 			    </div>
+//             </div>
+//             <div class = "align-center">
+//             <div uib-pagination total-items="$ctrl.articles.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></div>
+//             </div>`,
    
     controller: function ArticleListController($scope, $http, $location, $resource, $routeParams, $route) {
     var self = this;
@@ -66,6 +66,10 @@ angular.module('articleApp').component('articles', {
     self.pageSize = 5;
 
     self.$onInit = function () {
+      getArticles();
+    }
+
+    self.getArticles = function () {
        $http.get('/articles/getArticles').then(
             function(success) {
                 self.articles = success.data.articles;
@@ -74,6 +78,7 @@ angular.module('articleApp').component('articles', {
                 console.log('ERROR', error);
             });
     }
+
     self.update = function (id) {
        $location.path('articles/update/'+id);
     }
@@ -91,11 +96,11 @@ angular.module('articleApp').component('articles', {
 
 
 angular.module('articleApp').component('addAnArticle', {
-   template: `<div class="align-center">
-                <form method="get">
-                    <button class="button" id="addArticleButton" type="submit" ng-click="$ctrl.add()">Add an article</button>
-                </form>
-             </div>`,
+//    template: `<div class="align-center">
+//                 <form method="get">
+//                     <button class="button" id="addArticleButton" type="submit" ng-click="$ctrl.add()">Add an article</button>
+//                 </form>
+//              </div>`,
    
     controller: function AddAnArticleController($scope, $http, $location) {
  
