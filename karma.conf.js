@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Tue Feb 07 2017 01:49:27 GMT+0300 (Belarus Standard Time)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -21,39 +21,27 @@ module.exports = function(config) {
       './public/angular/js/angular-ui-router.js',
       './public/angular/js/ui-bootstrap-tpls-2.5.0.min.js',
       './node_modules/angular-mocks/angular-mocks.js',
-      //'./public/angular/controllers/addActicleController.js',
       './public/angular/controllers/mainApp.js',
-      'tests/*.js'
+
+      './tests/*.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-      'yes'
+      //'yes'
     ],
-
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      "/public/views/**/*.html": ["ng-html2js"]
-    },
-
-    ngHtml2JsPreprocessor: {
-        // If your build process changes the path to your templates,
-        // use stripPrefix and prependPrefix to adjust it.
-        stripPrefix: "public/views/.*/",
-        prependPrefix: "public/views/",
-
-        // the name of the Angular module to create
-        moduleName: "my.templates"
-    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    //reporters: ['progress'],
+    reporters: ['spec', 'coverage'],
 
+    coverageReporter: {
+      type: 'html',
+      dir: './tests/coverage'
+    },
 
     // web server port
     port: 9876,
@@ -74,7 +62,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
@@ -85,8 +73,12 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
-    plugins : [
-      'karma-jasmine', 'karma-phantomjs-launcher', 
-      'karma-ng-html2js-preprocessor' ]
+    plugins: [
+      'karma-jasmine',
+      'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
+      'karma-spec-reporter',
+      'karma-coverage'
+    ]
   })
 }

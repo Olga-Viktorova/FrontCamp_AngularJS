@@ -28,10 +28,12 @@
     "jasmine-core": "^2.5.2",
     "karma": "^1.4.1",
     "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
     "karma-html2js-preprocessor": "^1.1.0",
     "karma-jasmine": "^1.1.0",
     "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.2",
+    "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^2.0.2",
     "nodemon": "^1.11.0"
   }
