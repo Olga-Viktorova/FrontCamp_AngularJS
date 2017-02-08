@@ -37,27 +37,27 @@ var myApp = angular.module('articleApp', ['ui.router', 'ui.bootstrap' , 'ngRoute
 
 //COMPONENTS
 angular.module('articleApp').component('articles', {
-//    template: `<div ng-repeat = "art in $ctrl.articles | startFrom: ($ctrl.currentPage-1) * $ctrl.pageSize | limitTo:$ctrl.pageSize" >
-//                 <div class="article">
-//                     <img ng-src={{art.imagelink}} class="img"/>
-//                     <a href={{art.acticlelink}} class="link" ng-click="$ctrl.update(art._id)">{{art.title}}</a>
-//                     <h4>{{art.description}}</h4>
-//                     <h4>By: {{art.author}}</h4>
-//                     <div class="inline"> 
-//                         <form method="get">
-//                            <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.update(art._id)">Update</button>
-//                         </form>
-//                     </div>	
-//                     <div class="inline"> 
-//                         <form method="get">
-//                            <button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.delete(art._id)">Delete</button>
-//                         </form>
-//                     </div>								
-// 			    </div>
-//             </div>
-//             <div class = "align-center">
-//             <div uib-pagination total-items="$ctrl.articles.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></div>
-//             </div>`,
+   template: ['<div ng-repeat = "art in $ctrl.articles | startFrom: ($ctrl.currentPage-1) * $ctrl.pageSize | limitTo:$ctrl.pageSize" >',
+                '<div class="article">',
+                    '<img ng-src={{art.imagelink}} class="img"/>',
+                    '<a href={{art.acticlelink}} class="link" ng-click="$ctrl.update(art._id)">{{art.title}}</a>',
+                    '<h4>{{art.description}}</h4>',
+                    '<h4>By: {{art.author}}</h4>',
+                    '<div class="inline"> ',
+                        '<form method="get">',
+                           '<button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.update(art._id)">Update</button>',
+                        '</form>',
+                    '</div>	',
+                    '<div class="inline"> ',
+                        '<form method="get">',
+                           '<button class="button" id="updateArticleButton" type="submit" ng-click="$ctrl.delete(art._id)">Delete</button>',
+                        '</form>',
+                    '</div>',								
+			    '</div>',
+            '</div>',
+            '<div class = "align-center">',
+            '<div uib-pagination total-items="$ctrl.articles.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></div>',
+            '</div>'].join(''),
    
     controller: function ArticleListController($scope, $http, $location, $resource, $routeParams, $route) {
     var self = this;
@@ -66,7 +66,7 @@ angular.module('articleApp').component('articles', {
     self.pageSize = 5;
 
     self.$onInit = function () {
-      getArticles();
+      self.getArticles();
     }
 
     self.getArticles = function () {
@@ -96,11 +96,11 @@ angular.module('articleApp').component('articles', {
 
 
 angular.module('articleApp').component('addAnArticle', {
-//    template: `<div class="align-center">
-//                 <form method="get">
-//                     <button class="button" id="addArticleButton" type="submit" ng-click="$ctrl.add()">Add an article</button>
-//                 </form>
-//              </div>`,
+   template:['<div class="align-center">',
+                '<form method="get">',
+                    '<button class="button" id="addArticleButton" type="submit" ng-click="$ctrl.add()">Add an article</button>',
+                '</form>',
+             '</div>' ].join(''),
    
     controller: function AddAnArticleController($scope, $http, $location) {
  
@@ -123,41 +123,7 @@ myApp.controller('ArticleCtrl', ['$scope', '$http', '$location', 'articleService
   }
 }]);
 
-myApp.controller('AddArticleCtrl', ['$scope', '$http', '$location', 'articleService', '$routeParams', '$resource', function($scope, $http, $location, articleService, $routeParams, $resource) {
-  $scope.status = '';
-  $scope.id = $routeParams.id;
-  $scope.currentArticle = {};
 
-  $scope.save = function() {
-    var article = {
-                    id: $scope.currentArticle._id,
-                    title: $scope.currentArticle.title,
-                    author: $scope.currentArticle.author,
-                    imagelink : $scope.currentArticle.imagelink,
-                    acticlelink: $scope.currentArticle.acticlelink,
-                    description: $scope.currentArticle.description
-                };
-    articleService.addArticle(article);
-  }
-   var UpdateArticle = $resource('/articles/update?id=:id', {id:'@id'});
-   UpdateArticle.get({id: $routeParams.id}, function(success) {
-   $scope.currentArticle = success.article;
-        console.log('RESPONSE', success);
-        }, function(error) {
-        console.log('ERROR', error);
-    });  
-
-//   $scope.getCurrentArticle = function(id) {
-//       $http.get('/articles/update?id=' + id).then(
-//             function(success) {
-//                 $scope.currentArticle = success.data.article;
-//                 console.log('RESPONSE', success);
-//                 }, function(error) {
-//                 console.log('ERROR', error);
-//                 });
-//   }
-  //$scope.getCurrentArticle($routeParams.id);
-}]);
 
 //SERVISE
 myApp.service('articleService',['$http', '$location', '$resource', function($http, $location, $resource) {
@@ -217,12 +183,83 @@ myApp.service('articleService',['$http', '$location', '$resource', function($htt
 //DERICTIVES
 myApp.directive('addArticleDirective', function(){
      var directive = {};
-     directive.templateUrl = "views/addArticle.html"
+     directive.template = ['<link rel="stylesheet" href="/stylesheets/articleAdd.css"/>',
+            '<div class="container" ng-submit="saveArticle()" ng-controller="AddArticleCtrl">',
+               '<form id="contact"  method="post" name="article">',
+                    '<h3>Add Acticle</h3>'    ,
+                    '<h4>Contact us for custom quote</h4> ',
+                     '<fieldset>',
+                       '<input placeholder="ID" type="hidden" tabindex="1" required="" autofocus="" name="id" ng-model="currentArticle._id"/>',
+                    '</fieldset>      ',
+                    '<fieldset>',
+                       '<input ng-model="currentArticle.title" placeholder="Title" type="text" tabindex="1" required autofocus="" name="title"  /><!--min-words="20"-->',
+                       '<!--<ng-message when="minWords">It should be more 20 symbols</ng-message>-->',
+                    '</fieldset>    ',
+                    '<fieldset>',
+                        '<input placeholder="Author" type="text" tabindex="2" required="" ng-model="currentArticle.author" />',
+                    '</fieldset>    ',
+                    '<fieldset>',
+                        '<input placeholder="Image link" type="url" tabindex="3" required="" ng-model="currentArticle.imagelink"/>',
+                    '</fieldset>    ',
+                    '<fieldset>',
+                        '<input placeholder="Article Limk" type="url" tabindex="4" required="" ng-model="currentArticle.acticlelink"/>',
+                    '</fieldset>    ',
+                    '<fieldset>',
+                       '<textarea placeholder="Description" tabindex="5" required ng-model="currentArticle.description"></textarea>',
+                    '</fieldset>    ',
+                    '<fieldset>',
+                       '<button id="contact-submit" name="submit" type="submit" data-submit="...Sending">Submit</button>',
+                    '</fieldset>    ',
+                '</form>',
+            '</div>'
+            ].join('')
+        //directive.templateUrl = "views/addArticle.html"
      directive.restrict = "E";
 
     return directive;
     
 });
+
+myApp.controller('AddArticleCtrl', ['$scope', '$http', '$location', 'articleService', '$routeParams', '$resource', function($scope, $http, $location, articleService, $routeParams, $resource) {
+  $scope.status = '';
+  $scope.id = $routeParams.id;
+  $scope.currentArticle = {};
+
+  $scope.saveArticle = function() {
+    var article = {
+                    id: $scope.currentArticle._id,
+                    title: $scope.currentArticle.title,
+                    author: $scope.currentArticle.author,
+                    imagelink : $scope.currentArticle.imagelink,
+                    acticlelink: $scope.currentArticle.acticlelink,
+                    description: $scope.currentArticle.description
+                };
+    articleService.addArticle(article);
+  }
+
+  $scope.updateArticle = function(){
+
+    var UpdateArticle = $resource('/articles/update?id=:id', {id:'@id'});
+    UpdateArticle.get({id: $routeParams.id}, function(success) {
+    $scope.currentArticle = success.article;
+            console.log('RESPONSE', success);
+            }, function(error) {
+            console.log('ERROR', error);
+        });  
+  }
+  
+  $scope.updateArticle();
+//   $scope.getCurrentArticle = function(id) {
+//       $http.get('/articles/update?id=' + id).then(
+//             function(success) {
+//                 $scope.currentArticle = success.data.article;
+//                 console.log('RESPONSE', success);
+//                 }, function(error) {
+//                 console.log('ERROR', error);
+//                 });
+//   }
+  //$scope.getCurrentArticle($routeParams.id);
+}]);
 
 myApp.directive('minWords', function() {
     return {

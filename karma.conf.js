@@ -17,9 +17,12 @@ module.exports = function(config) {
     files: [
       './public/angular/js/angular.js',
       './public/angular/js/angular-resource.js',
+      './public/angular/js/angular-route.js',
+      './public/angular/js/angular-ui-router.js',
+      './public/angular/js/ui-bootstrap-tpls-2.5.0.min.js',
       './node_modules/angular-mocks/angular-mocks.js',
-      './public/angular/controllers/addActicleController.js',
-      './public/angular/controllers/testFile.js',
+      //'./public/angular/controllers/addActicleController.js',
+      './public/angular/controllers/mainApp.js',
       'tests/*.js'
     ],
 
@@ -33,8 +36,18 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      "/public/views/**/*.html": ["ng-html2js"]
     },
 
+    ngHtml2JsPreprocessor: {
+        // If your build process changes the path to your templates,
+        // use stripPrefix and prependPrefix to adjust it.
+        stripPrefix: "public/views/.*/",
+        prependPrefix: "public/views/",
+
+        // the name of the Angular module to create
+        moduleName: "my.templates"
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -72,6 +85,8 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
-   // plugins : ['karma-jasmine', 'karma-phantomjs-launcher']
+    plugins : [
+      'karma-jasmine', 'karma-phantomjs-launcher', 
+      'karma-ng-html2js-preprocessor' ]
   })
 }
