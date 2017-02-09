@@ -1,8 +1,7 @@
 // Karma configuration
 // Generated on Tue Feb 07 2017 01:49:27 GMT+0300 (Belarus Standard Time)
 
-module.exports = function (config) {
-  config.set({
+module.exports = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -23,7 +22,7 @@ module.exports = function (config) {
       './node_modules/angular-mocks/angular-mocks.js',
       './public/angular/controllers/mainApp.js',
 
-      './tests/*.js'
+      './tests/\*.js'
     ],
 
 
@@ -53,7 +52,7 @@ module.exports = function (config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+   // logLevel: config.LOG_INFO,
 
 
     // enable / disable watching file and executing tests whenever any file changes
@@ -80,5 +79,4 @@ module.exports = function (config) {
       'karma-spec-reporter',
       'karma-coverage'
     ]
-  })
 }
